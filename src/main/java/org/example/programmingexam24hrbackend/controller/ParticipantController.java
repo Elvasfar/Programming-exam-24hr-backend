@@ -1,5 +1,6 @@
 package org.example.programmingexam24hrbackend.controller;
 
+import org.example.programmingexam24hrbackend.dto.ParticipantDTO;
 import org.example.programmingexam24hrbackend.entity.Participant;
 import org.example.programmingexam24hrbackend.service.ParticipantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,29 +12,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/participants")
 public class ParticipantController {
+
     @Autowired
     private ParticipantService participantService;
 
     @GetMapping
-    public List<Participant> getAllParticipants() {
+    public List<ParticipantDTO> getAllParticipants() {
         return participantService.getAllParticipants();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Participant> getParticipantById(@PathVariable Long id) {
+    public ResponseEntity<ParticipantDTO> getParticipantById(@PathVariable Long id) {
         return participantService.getParticipantById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Participant createParticipant(@RequestBody Participant participant) {
-        return participantService.createParticipant(participant);
+    public ResponseEntity<ParticipantDTO> createParticipant(@RequestBody ParticipantDTO participantDTO) {
+        ParticipantDTO createdParticipant = participantService.createParticipant(participantDTO);
+        return ResponseEntity.ok(createdParticipant);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Participant> updateParticipant(@PathVariable Long id, @RequestBody Participant participantDetails) {
-        return ResponseEntity.ok(participantService.updateParticipant(id, participantDetails));
+    public ResponseEntity<ParticipantDTO> updateParticipant(@PathVariable Long id, @RequestBody ParticipantDTO participantDTO) {
+        ParticipantDTO updatedParticipant = participantService.updateParticipant(id, participantDTO);
+        return ResponseEntity.ok(updatedParticipant);
     }
 
     @DeleteMapping("/{id}")

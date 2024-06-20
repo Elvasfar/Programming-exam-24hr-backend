@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +19,10 @@ public class Discipline {
 
     private String disciplineName;
 
-    @OneToOne(mappedBy = "discipline")
-    private Result result;
+    @ManyToMany(mappedBy = "disciplines")
+    private List<Participant> participants;
+
+    @OneToMany(mappedBy = "discipline")
+    private List<Result> results;
 
 }

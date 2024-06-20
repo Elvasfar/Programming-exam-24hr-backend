@@ -11,6 +11,7 @@ public class ParticipantDTO {
     private String gender;
     private Integer age;
     private String club;
+    private List<Long> disciplineIds;
     private List<ResultDTO> results;
 
 }

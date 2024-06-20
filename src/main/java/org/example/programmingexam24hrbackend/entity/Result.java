@@ -19,7 +19,7 @@ public class Result {
     @JoinColumn(name = "participant_id")
     private Participant participant;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "discipline_id")
     private Discipline discipline;
 

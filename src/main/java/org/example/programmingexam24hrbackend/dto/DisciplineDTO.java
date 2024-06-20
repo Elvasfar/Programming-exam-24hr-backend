@@ -2,11 +2,12 @@ package org.example.programmingexam24hrbackend.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class DisciplineDTO {
     private Long id;
     private String disciplineName;
-    private ResultDTO result;
-
-    // Getters and setters
+    private List<Long> participantIds;
+    private List<ResultDTO> results;
 }

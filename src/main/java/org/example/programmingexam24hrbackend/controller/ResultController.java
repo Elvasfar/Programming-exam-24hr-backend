@@ -1,5 +1,6 @@
 package org.example.programmingexam24hrbackend.controller;
 
+import org.example.programmingexam24hrbackend.dto.ResultDTO;
 import org.example.programmingexam24hrbackend.entity.Result;
 import org.example.programmingexam24hrbackend.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,29 +12,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/results")
 public class ResultController {
+
     @Autowired
     private ResultService resultService;
 
     @GetMapping
-    public List<Result> getAllResults() {
+    public List<ResultDTO> getAllResults() {
         return resultService.getAllResults();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Result> getResultById(@PathVariable Long id) {
+    public ResponseEntity<ResultDTO> getResultById(@PathVariable Long id) {
         return resultService.getResultById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Result createResult(@RequestBody Result result) {
-        return resultService.createResult(result);
+    public ResponseEntity<ResultDTO> createResult(@RequestBody ResultDTO resultDTO) {
+        ResultDTO createdResult = resultService.createResult(resultDTO);
+        return ResponseEntity.ok(createdResult);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Result> updateResult(@PathVariable Long id, @RequestBody Result resultDetails) {
-        return ResponseEntity.ok(resultService.updateResult(id, resultDetails));
+    public ResponseEntity<ResultDTO> updateResult(@PathVariable Long id, @RequestBody ResultDTO resultDTO) {
+        ResultDTO updatedResult = resultService.updateResult(id, resultDTO);
+        return ResponseEntity.ok(updatedResult);
     }
 
     @DeleteMapping("/{id}")

@@ -10,5 +10,4 @@ public class ResultDTO {
     private String resultValue;
     private String resultType;
 
-    // Getters and setters
 }
